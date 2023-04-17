@@ -300,11 +300,9 @@ impl std::str::FromStr for ImportClause {
         );
         let s = s.trim_start_matches(ImportClause::PREFIX).trim();
 
-        let rs = s.chars().rev().collect::<String>();
-
         let splits = s
             .find('<')
-            .and_then(|i0| rs.find('>').map(|i1| (i0 + 1, rs.len() - i1 - 1)));
+            .and_then(|i0| s.rfind('>').map(|i1| (i0 + 1, i1)));
 
         if let Some((i0, i1)) = splits {
             let s = &s[i0..i1];
